@@ -23,6 +23,8 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+
+
     // lombok 의존성
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -36,6 +38,14 @@ dependencies {
 
     // jpa 의존성
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // jwt 의존성
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // assertj 의존성
+    testImplementation 'org.assertj:assertj-core:3.22.0'
 }
 
 tasks.named('test') {

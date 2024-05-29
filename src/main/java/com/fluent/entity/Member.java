@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @DynamicUpdate
-@Table(name = "member")
+@Table
 public class Member {
     @Id
     @Column
@@ -21,5 +21,8 @@ public class Member {
 
     @Column
     private String nickName;
+
+    @Column
+    private String profilePictureUrl;
 
 }
