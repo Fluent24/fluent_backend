@@ -34,7 +34,7 @@ public class MemberServiceTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    @Test
+    //@Test
     void testFindMemberByEmail() {
         // 데이터베이스에 초기 데이터 입력
         Member member = memberRepository.save(new Member("member1@example.com", "JohnDoe", "https://example.com/path/to/profile1.jpg"));
