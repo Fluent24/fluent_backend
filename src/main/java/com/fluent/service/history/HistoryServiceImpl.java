@@ -6,11 +6,13 @@ import com.fluent.mapper.EntityMapper;
 import com.fluent.repository.HistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class HistoryServiceImpl implements HistoryService {
     private final HistoryRepository historyRepository;
 

@@ -8,12 +8,14 @@ import com.fluent.repository.QuizRepository;
 import com.fluent.service.favorite.FavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class QuizServiceImpl implements QuizService {
     private final QuizRepository quizRepository;
     private final EntityMapper mapper;

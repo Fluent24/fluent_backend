@@ -2,6 +2,7 @@ package com.fluent.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
@@ -11,6 +12,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @AllArgsConstructor
 @Builder
 @DynamicUpdate
+@DynamicInsert
 @ToString(exclude = "member")
 @Table
 public class Favorite {
@@ -20,7 +22,7 @@ public class Favorite {
 
     private String favorite;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "memberId", referencedColumnName = "email")
     private Member member;
 

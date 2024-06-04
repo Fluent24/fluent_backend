@@ -11,4 +11,5 @@ public class MemberDTO {
     private String email;
     private String nickName;
     private String profilePictureUrl;
+    private Long tier;
 }
