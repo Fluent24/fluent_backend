@@ -42,7 +42,35 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<MemberDTO> findMembersByTier(Long tier) {
+        List<Member> members = memberRepository.findByTier(tier);
+        return members.stream()
+                      .map(EntityMapper.INSTANCE::memberToMemberDTO)
+                      .collect(Collectors.toList());
+    }
+
+    @Override
     public void deleteMember(String email) {
         memberRepository.deleteById(email);
+    }
+
+    @Override
+    public void increaseMemberTier(String email) {
+        Optional<Member> memberOptional = memberRepository.findByEmail(email);
+        if (memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+            member.setTier(member.getTier() + 1);
+            memberRepository.save(member);
+        }
+    }
+
+    @Override
+    public void decreaseMemberExp(String email) {
+        Optional<Member> memberOptional = memberRepository.findByEmail(email);
+        if (memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+            member.setExp(75L);
+            memberRepository.save(member);
+        }
     }
 }

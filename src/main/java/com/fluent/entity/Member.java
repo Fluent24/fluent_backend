@@ -30,4 +30,7 @@ public class Member {
     @Column
     private Long tier;
 
+    @Column
+    private Long exp;
+
 }

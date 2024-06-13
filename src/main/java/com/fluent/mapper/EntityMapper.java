@@ -17,7 +17,9 @@ public interface EntityMapper {
     EntityMapper INSTANCE = Mappers.getMapper(EntityMapper.class);
 
     // Member mappings
+    @Mapping(target = "favorites", ignore = true)
     MemberDTO memberToMemberDTO(Member member);
+    @Mapping(target = "favorites", ignore = true)
     Member memberDTOToMember(MemberDTO memberDTO);
 
     // Favorite mappings

@@ -1,7 +1,7 @@
 package com.fluent.controller;
 
 import com.fluent.dto.HistoryDTO;
-import com.fluent.entity.History;
+import com.fluent.security.JwtUtil;
 import com.fluent.service.history.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +13,18 @@ import java.util.List;
 @RequestMapping("/api/histories")
 public class HistoryController {
     private final HistoryService historyService;
+    private final JwtUtil jwtUtil;
 
     @Autowired
-    public HistoryController(HistoryService historyService) {
+    public HistoryController(HistoryService historyService, JwtUtil jwtUtil) {
         this.historyService = historyService;
+        this.jwtUtil = jwtUtil;
     }
 
     // 이메일을 기반으로 히스토리 검색
     @GetMapping
-    public ResponseEntity<List<HistoryDTO>> getHistoriesByEmail(@RequestParam String email) {
+    public ResponseEntity<List<HistoryDTO>> getHistoriesByEmail(@RequestHeader("Authorization") String token) {
+        String email = jwtUtil.extractEmail(token.substring(7)); // "Bearer " 제거
         List<HistoryDTO> histories = historyService.findHistoryByEmail(email);
         if (histories.isEmpty()) {
             return ResponseEntity.noContent().build();

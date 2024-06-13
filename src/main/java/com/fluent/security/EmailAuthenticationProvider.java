@@ -12,13 +12,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
 public class EmailAuthenticationProvider implements AuthenticationProvider {
 
     private final MemberService memberService;
-
     private final JwtUtil jwtUtil;
 
     public EmailAuthenticationProvider(MemberService memberService, JwtUtil jwtUtil) {
@@ -31,9 +31,9 @@ public class EmailAuthenticationProvider implements AuthenticationProvider {
         String email = authentication.getName();
         Optional<MemberDTO> memberOptional = memberService.findMemberByEmail(email);
         if (memberOptional.isPresent()) {
-            String token = jwtUtil.generateToken(email);
+            Map<String, Object> tokens = jwtUtil.generateTokens(email);
             UserDetails userDetails = new org.springframework.security.core.userdetails.User(email, "", List.of());
-            return new UsernamePasswordAuthenticationToken(userDetails, token, userDetails.getAuthorities());
+            return new UsernamePasswordAuthenticationToken(userDetails, tokens.get("accessToken"), userDetails.getAuthorities());
         } else {
             throw new UsernameNotFoundException("Member not found with email: " + email);
         }

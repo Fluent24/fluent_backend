@@ -1,26 +1,28 @@
 package com.fluent.controller;
 
 import com.fluent.dto.QuizDTO;
+import com.fluent.security.JwtUtil;
 import com.fluent.service.quiz.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/quizzes")
 public class QuizController {
     private final QuizService quizService;
+    private final JwtUtil jwtUtil;
 
     @Autowired
-    public QuizController(QuizService quizService) {
+    public QuizController(QuizService quizService, JwtUtil jwtUtil) {
         this.quizService = quizService;
+        this.jwtUtil = jwtUtil;
     }
 
     // 이메일을 기반으로 무작위 퀴즈 검색
     @GetMapping
-    public ResponseEntity<QuizDTO> getRandomQuiz(@RequestParam String email) {
+    public ResponseEntity<QuizDTO> getRandomQuiz(@RequestHeader("Authorization") String token) {
+        String email = jwtUtil.extractEmail(token.substring(7)); // "Bearer " 제거
         QuizDTO quizDTO = quizService.findRandomQuiz(email);
         if (quizDTO != null) {
             return ResponseEntity.ok(quizDTO);

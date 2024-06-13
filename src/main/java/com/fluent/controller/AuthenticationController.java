@@ -17,7 +17,6 @@ import java.util.Optional;
 @RequestMapping("/auth")
 public class AuthenticationController {
     private final MemberService memberService;
-
     private final JwtUtil jwtUtil;
 
     public AuthenticationController(MemberService memberService, JwtUtil jwtUtil) {
@@ -31,8 +30,8 @@ public class AuthenticationController {
         Optional<MemberDTO> memberOptional = memberService.findMemberByEmail(email);
 
         if (memberOptional.isPresent()) {
-            String token = jwtUtil.generateToken(email);
-            return ResponseEntity.ok(Collections.singletonMap("jwt", token));
+            Map<String, Object> tokens = jwtUtil.generateTokens(email);
+            return ResponseEntity.ok(tokens);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Member not found");
         }
