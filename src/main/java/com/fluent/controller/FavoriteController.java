@@ -32,7 +32,9 @@ public class FavoriteController {
     }
 
     @PostMapping
-    public ResponseEntity<FavoriteDTO> createFavorite(@RequestBody FavoriteDTO favoriteDTO) {
+    public ResponseEntity<FavoriteDTO> createFavorite(@RequestHeader("Authorization") String token, @RequestBody FavoriteDTO favoriteDTO) {
+        String email = jwtUtil.extractEmail(token.substring(7));
+        favoriteDTO.setMemberId(email);
         FavoriteDTO savedFavorite = favoriteService.saveFavorite(favoriteDTO);
         return ResponseEntity.ok(savedFavorite);
     }

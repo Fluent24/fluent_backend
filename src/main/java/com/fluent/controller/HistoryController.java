@@ -34,7 +34,9 @@ public class HistoryController {
 
     // 히스토리 생성
     @PostMapping
-    public ResponseEntity<HistoryDTO> createHistory(@RequestBody HistoryDTO historyDTO) {
+    public ResponseEntity<HistoryDTO> createHistory(@RequestHeader("Authorization") String token, @RequestBody HistoryDTO historyDTO) {
+        String email = jwtUtil.extractEmail(token.substring(7));
+        historyDTO.setMemberId(email);
         HistoryDTO savedHistory = historyService.saveHistory(historyDTO);
         return ResponseEntity.ok(savedHistory);
     }
