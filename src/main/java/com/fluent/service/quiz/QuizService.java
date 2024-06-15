@@ -9,4 +9,5 @@ public interface QuizService {
     QuizDTO findRandomQuiz(String email);
     QuizDTO saveQuiz(QuizDTO quizDTO);
     void deleteQuiz(Long id);
+    QuizDTO findQuizById(Long quizId);
 }

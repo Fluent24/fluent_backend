@@ -59,4 +59,11 @@ public class QuizServiceImpl implements QuizService {
     public void deleteQuiz(Long id) {
         quizRepository.deleteById(id);
     }
+
+    @Override
+    public QuizDTO findQuizById(Long quizId) {
+        return quizRepository.findById(quizId)
+                             .map(EntityMapper.INSTANCE::quizToQuizDTO)
+                             .orElseThrow(() -> new RuntimeException("Quiz not found with id: " + quizId));
+    }
 }

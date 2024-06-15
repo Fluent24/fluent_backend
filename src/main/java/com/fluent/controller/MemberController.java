@@ -50,6 +50,8 @@ public class MemberController {
                                                @RequestParam("favorites") List<String> favorites) {
         String email = jwtUtil.extractEmail(token.substring(7)); // "Bearer " 제거
         MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setTier(1L);
+        memberDTO.setExp(0L);
         memberDTO.setEmail(email);
         memberDTO.setNickName(nickName);
 
@@ -63,9 +65,9 @@ public class MemberController {
         return ResponseEntity.ok(savedMember);
     }
 
-    @GetMapping("/{tier}")
-    public ResponseEntity<List<MemberDTO>> getMembersByTier(@PathVariable Long tier) {
-        List<MemberDTO> members = memberService.findMembersByTier(tier);
+    @GetMapping("/all")
+    public ResponseEntity<List<MemberDTO>> getMembersByTier() {
+        List<MemberDTO> members = memberService.findAllMembers();
         return ResponseEntity.ok(members);
     }
 
@@ -77,14 +79,15 @@ public class MemberController {
     }
 
     @PostMapping("/updateTier")
-    public ResponseEntity<Void> updateMemberTier(@RequestHeader("Authorization") String token,
+    public ResponseEntity<MemberDTO> updateMemberTier(@RequestHeader("Authorization") String token,
                                                  @RequestParam("averageScore") double averageScore) {
         String email = jwtUtil.extractEmail(token.substring(7)); // "Bearer " 제거
+        MemberDTO memberDTO = new MemberDTO();
         if (averageScore >= 6) {
-            memberService.increaseMemberTier(email);
+            memberDTO = memberService.increaseMemberTier(email);
         } else {
-            memberService.decreaseMemberExp(email);
+            memberDTO = memberService.decreaseMemberExp(email);
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(memberDTO);
     }
 }

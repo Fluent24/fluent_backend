@@ -36,4 +36,17 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Member not found");
         }
     }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refreshToken(@RequestBody Map<String, String> payload) {
+        String refreshToken = payload.get("refreshToken");
+
+        if (!jwtUtil.isTokenExpired(refreshToken)) {
+            String email = jwtUtil.extractEmail(refreshToken);
+            Map<String, Object> tokens = jwtUtil.generateTokens(email);
+            return ResponseEntity.ok(tokens);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Refresh token expired");
+        }
+    }
 }

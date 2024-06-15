@@ -31,12 +31,23 @@ public class QuizController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<QuizDTO> getQuizById(@PathVariable Long id) {
+        try {
+            QuizDTO quizDTO = quizService.findQuizById(id);
+            return ResponseEntity.ok(quizDTO);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     // 퀴즈 생성
     @PostMapping
     public ResponseEntity<QuizDTO> createQuiz(@RequestBody QuizDTO quizDTO) {
         QuizDTO savedQuiz = quizService.saveQuiz(quizDTO);
         return ResponseEntity.ok(savedQuiz);
     }
+
 
     // 퀴즈 삭제
     @DeleteMapping("/{id}")
