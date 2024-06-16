@@ -31,7 +31,7 @@ public class HistoryServiceTest {
     //@Test
     public void testSaveAndDeleteHistory() {
         // 새 히스토리 저장 테스트
-        HistoryDTO newHistory = new HistoryDTO(null, 20L, new java.util.Date(), "member3@example.com", 3L);
+        HistoryDTO newHistory = new HistoryDTO(null, 20D, new java.util.Date(), "member3@example.com", 3L);
         HistoryDTO savedHistory = historyService.saveHistory(newHistory);
         assertThat(savedHistory).isNotNull();
         assertThat(savedHistory.getScore()).isEqualTo(20L);
