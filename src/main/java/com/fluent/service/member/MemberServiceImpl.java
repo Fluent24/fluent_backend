@@ -4,13 +4,11 @@ import com.fluent.dto.MemberDTO;
 import com.fluent.entity.Member;
 import com.fluent.mapper.EntityMapper;
 import com.fluent.repository.MemberRepository;
-import com.fluent.service.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

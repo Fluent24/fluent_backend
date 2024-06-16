@@ -25,5 +25,4 @@ public class Quiz {
     private Long tier;
     private Long answerVec;
 
-    // Getters and Setters
 }

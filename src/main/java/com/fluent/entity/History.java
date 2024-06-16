@@ -22,7 +22,7 @@ public class History {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long historyId;
 
-    private Long score;
+    private Double score;
     @Temporal(TemporalType.DATE)
     private Date solverDate;
 

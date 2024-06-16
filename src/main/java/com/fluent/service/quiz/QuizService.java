@@ -10,4 +10,5 @@ public interface QuizService {
     QuizDTO saveQuiz(QuizDTO quizDTO);
     void deleteQuiz(Long id);
     QuizDTO findQuizById(Long quizId);
+    void requestAndStoreQuizzes(String category);
 }

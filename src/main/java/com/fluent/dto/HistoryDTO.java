@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class HistoryDTO {
     private Long historyId;
-    private Long score;
+    private Double score;
     private Date solverDate;
     private String memberId;
     private Long quizId;
