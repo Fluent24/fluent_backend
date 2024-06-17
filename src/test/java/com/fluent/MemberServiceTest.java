@@ -5,8 +5,11 @@ import com.fluent.entity.Member;
 import com.fluent.repository.MemberRepository;
 import com.fluent.service.member.MemberService;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,4 +35,17 @@ public class MemberServiceTest {
 //        assertThat(foundMember).isNotNull();
 //        assertThat(foundMember.getEmail()).isEqualTo(member.getEmail());
 //    }
+//    @Test
+//    void  testMemberRepository(){
+//        Optional<Member> memberOptional = memberRepository.findByEmail("member2@example.com");
+//        if (memberOptional.isPresent()) {
+//            Member member = memberOptional.get();
+//            System.out.println("Member details:");
+//            System.out.println("Email: " + member.getEmail());
+//            System.out.println("Exp: " + member.getExp());
+//            System.out.println("Tier: " + member.getTier());
+//        }
+//        return;
+//    }
+
 }

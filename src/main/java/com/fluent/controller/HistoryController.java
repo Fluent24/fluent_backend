@@ -37,6 +37,8 @@ public class HistoryController {
     public ResponseEntity<HistoryDTO> createHistory(@RequestHeader("Authorization") String token, @RequestBody HistoryDTO historyDTO) {
         String email = jwtUtil.extractEmail(token.substring(7));
         historyDTO.setMemberId(email);
+        System.out.println(historyDTO.getQuizId());
+        System.out.println(historyDTO);
         HistoryDTO savedHistory = historyService.saveHistory(historyDTO);
         return ResponseEntity.ok(savedHistory);
     }
